@@ -1,0 +1,293 @@
+
+@import "/calendar.css" ;
+
+* {
+    padding: 0 ;
+    margin: 0 ;
+    box-sizing: border-box ;
+    outline: none ;
+    user-select: none ;
+}
+
+html {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif ;
+    font-size:11px;
+}
+
+.light-theme {
+    --background:#FEC0A9;
+    --surface : #ffffff ;
+    --accent : #FF8498 ;
+    --on-accent: #FFF ; 
+}
+
+.wrapper {
+    position: absolute ;
+    width : 100vw ;
+    height: 100vh ;
+    
+    overflow-x:auto;
+    overflow-y:hidden ;
+}
+
+.center {
+    position:relative;
+    width:38rem;
+    height:100%;
+    
+    display: flex ;
+    align-items: center ;
+    justify-content: center ;
+    background-color: var(--background) ;
+    
+}
+
+.card {
+    position: relative ;
+    border-radius: 8px ;
+    background-color: var(--surface) ;
+    box-shadow: 0 8px 17px 0 rgba(0,0,0,0.12),0 6px 20px 0 rgba(0,0,0,0.05) ;
+    overflow: hidden ;
+}
+
+.calendar {
+    font-size: 1rem ;
+    width : 32rem ;
+    /* height: 400px ; */
+    padding: 2rem ;
+    padding-left: 3rem ;
+    opacity: 0 ;
+    transition: opacity 300ms ease-out ;
+   
+}
+
+.calendar .top-controls {
+    display: flex ;
+    width: 100% ;
+    height: 2.5rem ;
+}
+
+.visible {
+    opacity: 1 ;
+}
+
+.calendar .top-controls .month-control {
+    flex: 1 ;
+    display: flex ;
+}
+
+.calendar .top-controls .year-control {
+    flex: 1 ;
+    display: flex ;
+}
+
+.calendar .top-controls .custom-select-input {
+    width : 100% ;
+    height: 2.5rem ;
+    display: flex ;
+}
+
+.calendar .top-controls .custom-select-input .left-btn {
+    position: relative ;
+    flex: 0 0 2.5rem ;
+}
+
+.calendar .top-controls .custom-select-input .left-btn:hover {
+    background-color: #f5f5f5 ;
+    cursor: pointer ;
+    border-radius: 4px ;
+}
+
+.calendar .top-controls .custom-select-input .left-btn::before {
+    position: absolute ;
+    content: "" ;
+    top : 50% ;
+    left: calc(50% + 0.175rem) ;
+    width: 0.5rem ;
+    height: 0.5rem ;
+    border-left: 2px solid #ccc ;
+    border-bottom: 2px solid #ccc ;
+    transform: translate(-50%,-50%) rotate(45deg) ;
+}
+
+.calendar .top-controls .custom-select-input .selected-option {
+    position: relative ;
+    flex: 1 ;
+    overflow: hidden ;
+}
+
+.calendar .top-controls .custom-select-input .selected-option .option-list {
+    position: absolute ;
+    width: 100% ;
+    --index:6;
+    transform: translateY(calc(var(--index) * -2.5rem));
+    transition: transform 300ms ease-out ;
+}
+
+.calendar .top-controls .custom-select-input .selected-option .option-list .option{
+    width: 100% ;
+    height: 2.5rem ;
+    display: flex ;
+    align-items: center ;
+    justify-content: center ;
+    color: #666 ;
+}
+
+
+.calendar .top-controls .custom-select-input .right-btn {
+    position: relative ;
+    flex: 0 0 2.5rem ;
+}
+
+.calendar .top-controls .custom-select-input .right-btn:hover {
+    background-color: #f5f5f5 ;
+    cursor: pointer ;
+    border-radius: 4px ;
+}
+
+.calendar .top-controls .custom-select-input .right-btn::before {
+    position: absolute ;
+    content: "" ;
+    top : 50% ;
+    left: calc(50% - 0.175rem) ;
+    width: 0.5rem ;
+    height: 0.5rem ;
+    border-top: 2px solid #ccc ;
+    border-right: 2px solid #ccc ;
+    transform: translate(-50%,-50%) rotate(45deg) ;
+}
+
+.calendar .top-controls .month-control .custom-select-input .selected-option .option-list {
+    --index:0;
+    transform: translateY(calc(var(--index) * -2.5rem));
+}
+
+.calendar .top-controls .year-control .custom-select-input .selected-option .option-list {
+    --index:0;
+    transform: translateY(calc(var(--index) * -2.5rem));
+}
+
+.calendar .week-name-group {
+    --index:3;
+    position: relative ;
+    display: flex ;
+    align-items: center ;
+    height: 3rem ;
+}
+
+.calendar .week-name-group .week-name {
+    flex: 0 0 2rem ;
+    margin-right: 2rem ;
+    display: flex ;
+    align-items: center ;
+    justify-content: center ;
+    color: #ccc ;
+    font-size: 0.8rem ;
+    font-weight: 500 ;
+    letter-spacing: 0px ;
+    width: 2rrem ;
+}
+
+.calendar .week-name-group .active {
+    color: #666 ;
+}
+
+.calendar .week-name-group .bottom-marker {
+    --index:3;
+    position: absolute ;
+    bottom: 0.6rem ;
+    left: 0rem ;
+    font-size: 1rem;
+    width: 2rem ;
+    height: 3px ;
+    background-color: var(--accent);
+    transition: transform 300ms ease-out ;
+    transform: translateX(calc(var(--index) * 4rem ));
+}
+
+.calendar .date-panel {
+    overflow: hidden ;
+}
+
+.calendar .date-panel .date-row {
+    display: flex ;
+    height : 2.5rem ;
+    position: relative ;
+    flex-wrap: nowrap ;
+    transition: transform 300ms ease-out ;
+}
+
+.calendar .date-panel .date-row .date{
+    position: relative ;
+    height: 2.5rem ;
+    width : 2rem ;
+    flex: 0 0 2rem ;
+    display: flex ;
+    align-items: center ;
+    justify-content: center ;
+    color: #aaaaaa ;
+    font-weight: 600 ;
+    margin-right: 2rem;
+}
+
+.calendar .date-panel .date-row .active::before {
+    position: absolute ;
+    content: attr(date) ;
+    width: 2rem ;
+    height: 2rem;
+    padding-bottom: 0.015rem ;
+    display: flex ;
+    align-items: center ;
+    justify-content: center ;
+    background-color: var(--accent);
+    color: var(--on-accent) ;
+    border-radius: 50% ;
+    cursor: pointer ;
+}
+
+.calendar .date-panel .date-row:nth-of-type(1) {
+    --index:0;
+    transform: translateX(calc(var(--index) * 4rem));
+}
+
+.calendar .date-panel .date-row:nth-of-type(2) {
+    --index:0;
+    transform: translateX(calc(var(--index) * 4rem));
+}
+
+.calendar .date-panel .date-row:nth-of-type(3) {
+    --index:0;
+    transform: translateX(calc(var(--index) * 4rem));
+}
+
+.calendar .date-panel .date-row:nth-of-type(4) {
+    --index:0;
+    transform: translateX(calc(var(--index) * 4rem));
+}
+
+.calendar .date-panel .date-row:nth-of-type(5) {
+    --index:0;
+    transform: translateX(calc(var(--index) * 4rem));
+}
+
+.calendar .date-panel .date-row:nth-of-type(6) {
+    --index:0;
+    transform: translateX(calc(var(--index) * 4rem));
+}
+
+.not-current {
+    --accent:#f5f5f5;
+    --on-accent: #666 ;
+}
+
+.hide-d29 .d29 , .hide-d29 .d30 , .hide-d29 .d31 {
+    opacity: 0 ;
+}
+
+.hide-d30 .d30 , .hide-d30 .d31 {
+    opacity: 0 ;
+}
+
+.hide-d31 .d31 {
+    opacity: 0 ;
+}
